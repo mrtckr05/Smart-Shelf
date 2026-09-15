@@ -37,4 +37,7 @@ backend/
 │       ├── ci.yml           # lint + test
 │       └── deploy.yml       # Docker build + deploy
 ├── docker-compose.yml       # Local geliştirme için
-└── README.md
+├── README.md
+└── ml/
+    ├── data/                 # Eğitim ve test veri setleri
+    ├── src/                  # Eğitim ve değerlendirme scriptleri            
