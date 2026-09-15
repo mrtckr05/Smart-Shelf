@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     ]
     
     # Model ağırlık yolu
-    MODEL_PATH: str = "app/weights/yolov8n.pt"
+    MODEL_PATH: str = ""
 
     class Config:
         case_sensitive = True

@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.core.config import settings
 
+from app.api.v1.api import api_router
+
 # Sunucu başlarken ve kapanırken çalışacak Lifespan fonksiyonu
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,6 +30,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+app.include_router(
+    api_router,
+    prefix="/api/v1"
+)
+
+
 @app.get("/health", tags=["Health"])
 def health_check():
     return {"status": "healthy", "project": settings.PROJECT_NAME, "version": settings.VERSION}
+
