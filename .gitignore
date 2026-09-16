@@ -237,6 +237,14 @@ db-data/
 postgres-data/
 docker-compose.override.yml
 
+# SQLite database files
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
 ### IDEs ###
 .vscode/
 .idea/
