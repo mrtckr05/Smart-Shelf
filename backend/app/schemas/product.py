@@ -1,13 +1,15 @@
 from pydantic import BaseModel
 
 
-class ShelfCreate(BaseModel):
+class ProductCreate(BaseModel):
     name: str
+    class_name: str
 
 
-class ShelfResponse(BaseModel):
+class ProductResponse(BaseModel):
     id: int
     name: str
+    class_name: str
 
     model_config = {
         "from_attributes": True
