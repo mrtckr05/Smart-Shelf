@@ -1,18 +1,49 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
+
 from app.core.config import settings
-
 from app.api.v1.api import api_router
+from app.services.camera_manager import CameraManager
+from app.services.monitoring_service import MonitoringService
 
-# Sunucu başlarken ve kapanırken çalışacak Lifespan fonksiyonu
+
+camera_manager = CameraManager(
+    camera_index=settings.CAMERA_INDEX
+)
+
+monitoring_service = MonitoringService(
+    camera_manager=camera_manager,
+    shelf_id=settings.SHELF_ID
+)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Başlangıç: Model yükleme veya DB bağlantıları burada başlatılır
-    print(f"🚀 {settings.PROJECT_NAME} başlatılıyor...")
+
+    # Sunucu başlarken
+    print(
+        f"🚀 {settings.PROJECT_NAME} başlatılıyor..."
+    )
+
+    if settings.MONITORING_ENABLED:
+        print("📷 Camera monitoring başlatılıyor...")
+
+        camera_manager.start()
+        monitoring_service.start()
+
     yield
-    # Kapanış: Kaynakları temizleme
+
+    # Sunucu kapanırken
+    if settings.MONITORING_ENABLED:
+        print("🛑 Camera monitoring durduruluyor...")
+
+        await monitoring_service.stop()
+        await camera_manager.stop()
+
     print("🛑 Sunucu kapatılıyor...")
+
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -20,6 +51,7 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     lifespan=lifespan
 )
+
 
 # Next.js erişimi için CORS ayarı
 app.add_middleware(
@@ -31,6 +63,7 @@ app.add_middleware(
 )
 
 
+# API router
 app.include_router(
     api_router,
     prefix="/api/v1"
@@ -39,5 +72,9 @@ app.include_router(
 
 @app.get("/health", tags=["Health"])
 def health_check():
-    return {"status": "healthy", "project": settings.PROJECT_NAME, "version": settings.VERSION}
 
+    return {
+        "status": "healthy",
+        "project": settings.PROJECT_NAME,
+        "version": settings.VERSION
+    }

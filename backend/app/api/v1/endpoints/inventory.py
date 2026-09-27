@@ -30,8 +30,11 @@ def create_inventory_endpoint(
     "/shelf/{shelf_id}",
     response_model=list[InventoryResponse]
 )
-def get_shelf_inventory_endpoint(
+def get_shelf_inventory(
     shelf_id: int,
     db: Session = Depends(get_db)
 ):
-    return get_inventory(db, shelf_id)
+    return get_inventory(
+        db,
+        shelf_id
+    )

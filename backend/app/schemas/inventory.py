@@ -11,8 +11,8 @@ class InventoryResponse(BaseModel):
     id: int
     shelf_id: int
     product_id: int
-    quantity: int
 
-    model_config = {
-        "from_attributes": True
-    }
+    name: str
+    class_name: str
+
+    quantity: int

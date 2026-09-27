@@ -1,43 +1,31 @@
-import cv2
-from app.core.config import settings
-import json
+from pathlib import Path
+from collections import Counter
+
+from ultralytics import YOLO
 
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_PATH = BASE_DIR / "weights" / "best.pt"
 
 
 class YOLOService:
-    def __init__(self, model_path : str):
-        self.model_path = model_path
+    def __init__(self):
+        self.model = YOLO(MODEL_PATH)
 
-    def load_model(self):
-        # YOLO modelini yükle
-        pass
+    def detect(self, source):
+        return self.model(source)
 
-    def preprocess_image(self, image):
-        # Görüntüyü model için ön işleme tabi tut
-        pass
+    def count_objects(self, results):
+        counts = Counter()
 
-    def detect_objects(self, image):
-        # Görüntüde nesne tespiti yap
-        pass
+        for result in results:
+            for box in result.boxes:
+                class_id = int(box.cls[0])
+                class_name = result.names[class_id]
 
-    def draw_boxes(self, image, detections):
-        # Tespit edilen nesnelerin etrafına kutular çiz
-        pass
+                counts[class_name] += 1
 
-    def process_image(self, image_path):
-        # Görüntüyü yükle
-        image = cv2.imread(image_path)
-        
-        # Nesne tespiti yap
-        detections = self.detect_objects(image)
-        
-        # Kutuları çiz
-        self.draw_boxes(image, detections)
-        
-        return image, detections
+        return dict(counts)
 
-    def save_image(self, image, output_path):
-        # Görüntüyü kaydet
-        cv2.imwrite(output_path, image)
-        
+
+yolo_service = YOLOService()

@@ -1,13 +1,16 @@
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import detection
-from app.api.v1.endpoints import shelf
-from app.api.v1.endpoints import product
-from app.api.v1.endpoints import inventory
-from app.api.v1.endpoints import observation
+from app.api.v1.endpoints import (
+    detection,
+    shelf,
+    product,
+    inventory,
+    observation,
+    camera
+)
+
 
 api_router = APIRouter()
-
 
 api_router.include_router(
     detection.router,
@@ -37,4 +40,10 @@ api_router.include_router(
     observation.router,
     prefix="/observations",
     tags=["Observations"]
+)
+
+api_router.include_router(
+    camera.router,
+    prefix="/camera",
+    tags=["Camera"]
 )

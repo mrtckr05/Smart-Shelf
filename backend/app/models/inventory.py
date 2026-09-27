@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -12,6 +12,14 @@ if TYPE_CHECKING:
 
 class Inventory(Base):
     __tablename__ = "inventory"
+
+    __table_args__ = (
+    UniqueConstraint(
+        "shelf_id",
+        "product_id",
+        name="uq_inventory_shelf_product"
+    ),
+)
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
