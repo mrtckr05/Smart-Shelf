@@ -17,6 +17,8 @@
 # production
 /build
 
+test_image.jpg
+camera_test.html
 pytest_cache
 
 # misc
