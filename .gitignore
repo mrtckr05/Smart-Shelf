@@ -17,6 +17,8 @@
 # production
 /build
 
+pytest_cache
+
 # misc
 .DS_Store
 *.pem
