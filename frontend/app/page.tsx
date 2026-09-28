@@ -1,8 +1,6 @@
 import { ArrowRight, Camera, Image as ImageIcon } from "lucide-react";
 import Link from "next/link";
 
-import ThemeToggle from "./components/ThemeToggle";
-
 const detectedProducts = ["Book", "Cup", "Pen", "Toy Car"];
 
 export default function Home() {
@@ -18,8 +16,6 @@ export default function Home() {
             <div className="brand-mark">S</div>
             <span>SmartShelf</span>
           </div>
-
-          <ThemeToggle />
         </div>
 
         <div className="hero-content">
