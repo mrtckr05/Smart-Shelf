@@ -1,4 +1,6 @@
 import { ArrowRight, Camera, Image as ImageIcon } from "lucide-react";
+import Link from "next/link";
+
 import ThemeToggle from "./components/ThemeToggle";
 
 const detectedProducts = ["Book", "Cup", "Pen", "Toy Car"];
@@ -21,7 +23,9 @@ export default function Home() {
         </div>
 
         <div className="hero-content">
-          <p className="eyebrow">COMPUTER VISION · SMART INVENTORY</p>
+          <p className="eyebrow">
+            COMPUTER VISION · SMART INVENTORY
+          </p>
 
           <h1>
             Your shelf,
@@ -35,7 +39,9 @@ export default function Home() {
           </p>
 
           <div className="detected">
-            <span className="detected-label">Currently detects</span>
+            <span className="detected-label">
+              Currently detects
+            </span>
 
             <div className="products">
               {detectedProducts.map((product) => (
@@ -47,7 +53,7 @@ export default function Home() {
           </div>
 
           <div className="actions">
-            <button className="action-card">
+            <Link href="/sample" className="action-card">
               <div className="icon-wrapper">
                 <ImageIcon size={22} strokeWidth={1.8} />
               </div>
@@ -63,9 +69,9 @@ export default function Home() {
               </div>
 
               <ArrowRight className="arrow" size={20} />
-            </button>
+            </Link>
 
-            <button className="action-card">
+            <Link href="/camera" className="action-card">
               <div className="icon-wrapper">
                 <Camera size={22} strokeWidth={1.8} />
               </div>
@@ -81,7 +87,7 @@ export default function Home() {
               </div>
 
               <ArrowRight className="arrow" size={20} />
-            </button>
+            </Link>
           </div>
         </div>
 
