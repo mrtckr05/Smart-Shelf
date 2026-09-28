@@ -1410,3 +1410,24 @@ h1 span {
   background: rgba(190, 100, 100, 0.12);
   color: #a05d5d;
 }
+
+.inventory-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.inventory-link:hover {
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.inventory-link svg:last-child {
+  margin-left: 2px;
+}
