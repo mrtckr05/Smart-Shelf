@@ -38,7 +38,7 @@ export default function InventoryPage() {
       setError(null);
 
       const response = await fetch(
-        `${API_URL}/api/v1/inventory?shelf_id=1`,
+        `${API_URL}/api/v1/inventory/shelf/1`,
         {
           cache: "no-store",
         }
