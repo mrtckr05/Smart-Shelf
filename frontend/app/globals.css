@@ -1385,3 +1385,28 @@ h1 span {
     right: 18px;
   }
 }
+
+.stock-status {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 9px;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stock-status.in {
+  background: rgba(100, 170, 130, 0.12);
+  color: #4f8a68;
+}
+
+.stock-status.low {
+  background: rgba(210, 170, 80, 0.13);
+  color: #9a762d;
+}
+
+.stock-status.out {
+  background: rgba(190, 100, 100, 0.12);
+  color: #a05d5d;
+}
