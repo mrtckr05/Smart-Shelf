@@ -1,7 +1,10 @@
-import { ArrowRight, Camera, Image as ImageIcon } from "lucide-react";
+import {
+  ArrowRight,
+  Camera,
+  Image as ImageIcon,
+  Package,
+} from "lucide-react";
 import Link from "next/link";
-
-import ThemeToggle from "./components/ThemeToggle";
 
 const detectedProducts = ["Book", "Cup", "Pen", "Toy Car"];
 
@@ -18,8 +21,6 @@ export default function Home() {
             <div className="brand-mark">S</div>
             <span>SmartShelf</span>
           </div>
-
-          <ThemeToggle />
         </div>
 
         <div className="hero-content">
@@ -89,6 +90,12 @@ export default function Home() {
               <ArrowRight className="arrow" size={20} />
             </Link>
           </div>
+
+          <Link href="/inventory" className="inventory-link">
+            <Package size={17} strokeWidth={1.8} />
+            <span>View Current Inventory</span>
+            <ArrowRight size={16} />
+          </Link>
         </div>
 
         <p className="footer-note">

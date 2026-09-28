@@ -67,6 +67,11 @@ button {
 }
 
 .theme-toggle {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 100;
+
   width: 38px;
   height: 38px;
 
@@ -1372,4 +1377,57 @@ h1 span {
   .inventory-grid {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 700px) {
+  .theme-toggle {
+    top: 18px;
+    right: 18px;
+  }
+}
+
+.stock-status {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 9px;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stock-status.in {
+  background: rgba(100, 170, 130, 0.12);
+  color: #4f8a68;
+}
+
+.stock-status.low {
+  background: rgba(210, 170, 80, 0.13);
+  color: #9a762d;
+}
+
+.stock-status.out {
+  background: rgba(190, 100, 100, 0.12);
+  color: #a05d5d;
+}
+
+.inventory-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.inventory-link:hover {
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.inventory-link svg:last-child {
+  margin-left: 2px;
 }

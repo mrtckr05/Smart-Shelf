@@ -18,13 +18,34 @@ type InventoryItem = {
   quantity: number;
 };
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const productNames: Record<string, string> = {
   book: "Book",
   cup: "Cup",
   pen: "Pen",
   toy_car: "Toy Car",
+};
+
+const getStockStatus = (quantity: number) => {
+  if (quantity === 0) {
+    return {
+      label: "Out of stock",
+      className: "out",
+    };
+  }
+
+  if (quantity <= 2) {
+    return {
+      label: "Low stock",
+      className: "low",
+    };
+  }
+
+  return {
+    label: "In stock",
+    className: "in",
+  };
 };
 
 export default function InventoryPage() {
@@ -173,36 +194,46 @@ export default function InventoryPage() {
             </div>
           ) : (
             <div className="inventory-grid">
-              {inventory.map((item) => (
-                <article
-                  className="inventory-card"
-                  key={item.id ?? item.product_id}
-                >
-                  <div className="inventory-card-top">
-                    <div className="product-icon">
-                      <Box size={20} />
+              {inventory.map((item) => {
+                const status = getStockStatus(item.quantity);
+
+                return (
+                  <article
+                    className="inventory-card"
+                    key={item.id ?? item.product_id}
+                  >
+                    <div className="inventory-card-top">
+                      <div className="product-icon">
+                        <Box size={20} />
+                      </div>
+
+                      <span className="product-class">
+                        {item.class_name}
+                      </span>
                     </div>
 
-                    <span className="product-class">
-                      {item.class_name}
-                    </span>
-                  </div>
+                    <div className="inventory-card-bottom">
+                      <div>
+                        <h3>
+                          {item.name ||
+                            productNames[item.class_name] ||
+                            item.class_name}
+                        </h3>
 
-                  <div className="inventory-card-bottom">
-                    <div>
-                      <h3>
-                        {item.name ||
-                          productNames[item.class_name] ||
-                          item.class_name}
-                      </h3>
+                        <span>Current quantity</span>
 
-                      <span>Current quantity</span>
+                        <span
+                          className={`stock-status ${status.className}`}
+                        >
+                          {status.label}
+                        </span>
+                      </div>
+
+                      <strong>{item.quantity}</strong>
                     </div>
-
-                    <strong>{item.quantity}</strong>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           )}
         </section>
